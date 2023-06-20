@@ -3,12 +3,13 @@ service: crud-serverless-users
 provider:
   name: aws
   runtime: nodejs14.x
-  # iam:
-  #   role:
-  #     statements:
-  #       - Effect: Allow
-  #         Action: 'dynamodb:*'
-  #         Resource: arn:aws:dynamodb:us-east-1:471893938953:table/usersTable
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'dynamodb:*'
+          Resource: arn:aws:dynamodb:us-east-1:535938505967:table/usersTable
+
 
 plugins:
   - serverless-offline
@@ -41,13 +42,13 @@ functions:
         - "getusers/handler.js"
     events:
       - http:
-          # path: users/{id}
-          path: users
+          path: users/{id}
+          # path: users
           method: GET
-          # request:
-          #   parameters:
-          #     paths:
-          #       id: true
+          request:
+            parameters:
+              paths:
+                id: true
   # create-users:
   #   handler: createUsers/handler.createUsers
   #   package:
@@ -105,24 +106,24 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-    S3Bucket:
-      Type: 'AWS::S3::Bucket'
-      Properties:
-        AccessControl: PublicRead
-        BucketName: bucket-serverless-course-123213
-    SampleBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket: !Ref S3Bucket
-        PolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Action:
-                - 's3:GetObject'
-              Effect: Allow
-              Resource: !Join
-                - ''
-                - - 'arn:aws:s3:::'
-                  - !Ref S3Bucket
-                  - /*
-              Principal: '*'
+    # S3Bucket:
+    #   Type: 'AWS::S3::Bucket'
+    #   Properties:
+    #     AccessControl: PublicRead
+    #     BucketName: bucket-serverless-course-123213
+    # SampleBucketPolicy:
+    #   Type: AWS::S3::BucketPolicy
+    #   Properties:
+    #     Bucket: !Ref S3Bucket
+    #     PolicyDocument:
+    #       Version: "2012-10-17"
+    #       Statement:
+    #         - Action:
+    #             - 's3:GetObject'
+    #           Effect: Allow
+    #           Resource: !Join
+    #             - ''
+    #             - - 'arn:aws:s3:::'
+    #               - !Ref S3Bucket
+    #               - /*
+    #           Principal: '*'

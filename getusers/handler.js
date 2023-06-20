@@ -15,10 +15,10 @@ if (process.env.IS_OFFLINE) {
 const dynamodb = new aws.DynamoDB.DocumentClient(dynamoDBClientParams);
 
 const getUsers = async (event, context) => {
-  // let userId = event.pathParameters.id;
+  let userId = event.pathParameters.id;
 
   var params = {
-    ExpressionAttributeValues: { ':pk': '1' },
+    ExpressionAttributeValues: { ':pk': userId },
     KeyConditionExpression: 'pk = :pk',
     TableName: 'usersTable',
   };
