@@ -65,21 +65,21 @@ functions:
           request:
             schemas:
               application/json: ${file(schemas/user-schema.json)}
-  # update-users:
-  #   handler: updateUsers/handler.updateUsers
-  #   package:
-  #     patterns:
-  #       - "updateUsers/handler.js"
-  #   events:
-  #     - http:
-  #         path: users/{id}
-  #         method: PATCH
-  #         request:
-  #           parameters:
-  #             paths:
-  #               id: true
-  #           schemas:
-  #             application/json: ${file(schemas/user-schema.json)}
+  update-users:
+    handler: updateUsers/handler.updateUsers
+    package:
+      patterns:
+        - "updateUsers/handler.js"
+    events:
+      - http:
+          path: users/{id}
+          method: PATCH
+          request:
+            parameters:
+              paths:
+                id: true
+            schemas:
+              application/json: ${file(schemas/user-schema.json)}
   # delete-users:
   #   handler: deleteUsers/handler.deleteUsers
   #   runtime: python3.8
