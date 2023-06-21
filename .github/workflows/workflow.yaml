@@ -20,6 +20,8 @@ jobs:
           npm run test
 
   deploy-env:
+    permissions:
+      pull-requests: write
     name: Deploy Lambda
     runs-on: ubuntu-latest
     needs: testing-changes
@@ -50,6 +52,3 @@ jobs:
             Your SLS App was deployed!
             Awesome :D
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        permissions:
-          contents: write
-          pull-requests: write
