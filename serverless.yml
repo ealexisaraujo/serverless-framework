@@ -19,7 +19,11 @@ plugins:
 package:
   individually: true
   patterns:
-    - "!*/**"
+    - "!.dynamodb/**"
+    # exclude node_modules from being packaged
+    - "!node_modules/**"
+    # exclude .git from being packaged
+    - "!**/.git/**"
 
 
 custom:
@@ -49,18 +53,18 @@ functions:
             parameters:
               paths:
                 id: true
-  # create-users:
-  #   handler: createUsers/handler.createUsers
-  #   package:
-  #     patterns:
-  #       - "createUsers/handler.js"
-  #   events:
-  #     - http:
-  #         path: users
-  #         method: POST
-  #         request:
-  #           schemas:
-  #             application/json: ${file(schemas/user-schema.json)}
+  create-users:
+    handler: createUsers/handler.createUsers
+    package:
+      patterns:
+        - "createUsers/handler.js"
+    events:
+      - http:
+          path: users
+          method: POST
+          request:
+            schemas:
+              application/json: ${file(schemas/user-schema.json)}
   # update-users:
   #   handler: updateUsers/handler.updateUsers
   #   package:

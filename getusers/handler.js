@@ -30,7 +30,7 @@ const getUsers = async (event, context) => {
       console.log(res);
       return {
         statusCode: 200,
-        body: JSON.stringify({ user: res }),
+        body: JSON.stringify(res.Items),
       };
     });
 };
