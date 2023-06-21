@@ -24,6 +24,11 @@ package:
     - "!node_modules/**"
     # exclude .git from being packaged
     - "!**/.git/**"
+    #exclude python environment from being packaged
+    - ".venv/**"
+    #exclude __pycache__ from being packaged
+    - "**/__pycache__/**"
+
 
 
 custom:
@@ -80,20 +85,20 @@ functions:
                 id: true
             schemas:
               application/json: ${file(schemas/user-schema.json)}
-  # delete-users:
-  #   handler: deleteUsers/handler.deleteUsers
-  #   runtime: python3.8
-  #   package:
-  #     patterns:
-  #       - "deleteUsers/handler.py"
-  #   events:
-  #     - http:
-  #         path: users/{id}
-  #         method: DELETE
-  #         request:
-  #           parameters:
-  #             paths:
-  #               id: true
+  delete-users:
+    handler: deleteUsers/handler.deleteUsers
+    runtime: python3.8
+    package:
+      patterns:
+        - "deleteUsers/handler.py"
+    events:
+      - http:
+          path: users/{id}
+          method: DELETE
+          request:
+            parameters:
+              paths:
+                id: true
 
 resources:
   Resources:
