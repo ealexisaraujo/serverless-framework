@@ -8,7 +8,7 @@ if IS_OFFLINE:
         aws_access_key_id='ACCESS_KEY',
         aws_secret_access_key='SECRET_KEY',
     )
-    client = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+    client = boto3.resource('dynamodb', endpoint_url='http://localhost:8001')
 
 table = client.Table('usersTable')
 

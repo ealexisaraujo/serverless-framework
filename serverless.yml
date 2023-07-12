@@ -17,8 +17,8 @@ provider:
 
 
 plugins:
-  - serverless-offline
-  - serverless-dynamodb-local
+  - serverless-dynamodb
+  - serverless-offline # must be loaded after
 
 
 package:
@@ -34,7 +34,7 @@ custom:
     stages:
       - dev
     start:
-      port: 8000
+      port: 8001
       inMemory: true
       migrate: true
     # Uncomment only if you already have a DynamoDB running locally
