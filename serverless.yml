@@ -9,11 +9,16 @@ provider:
         - Effect: Allow
           Action: 'dynamodb:*'
           Resource: arn:aws:dynamodb:us-east-1:535938505967:table/usersTable
+        - Effect: Allow
+          Action: 's3:*'
+          Resource: arn:aws:s3:::bucket-alexis-serverless-course-123213/*
+  environment:
+    BUCKET: bucket-alexis-serverless-course-123213
 
 
 plugins:
-  - serverless-offline
-  - serverless-dynamodb-local
+  - serverless-dynamodb
+  - serverless-offline # must be loaded after
 
 
 package:
@@ -29,7 +34,7 @@ custom:
     stages:
       - dev
     start:
-      port: 8000
+      port: 8001
       inMemory: true
       migrate: true
     # Uncomment only if you already have a DynamoDB running locally
@@ -91,6 +96,20 @@ functions:
             parameters:
               paths:
                 id: true
+  signedURL:
+    handler: signedurl/handler.signedS3URL
+    package:
+      patterns:
+        - "signedurl/handler.js"
+    events:
+      - http:
+          path: signedurl
+          method: GET
+          request:
+            parameters:
+              querystrings:
+                filename: true
+
 
 resources:
   Resources:
