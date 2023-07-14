@@ -109,6 +109,19 @@ functions:
             parameters:
               querystrings:
                 filename: true
+  thumbGenerator:
+    handler: thumbnail/handler.thumbnailGenerator
+    package:
+      patterns:
+        - "thumbnail/handler.js"
+        - "node_modules/**"
+    events:
+      - s3:
+          bucket: bucket-alexis-serverless-course-123213
+          event: s3:ObjectCreated:*
+          existing: true
+          rules:
+          - prefix: upload/
 
 
 resources:
