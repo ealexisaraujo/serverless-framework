@@ -61,6 +61,7 @@ yarn-error.log*
 # Dependency directories
 node_modules/
 jspm_packages/
+nodejs/
 
 # Optional npm cache directory
 .npm
@@ -93,3 +94,4 @@ Thumbs.db
 .dynamodb
 package-lock.json
 __pycache__/
+nodejs.zip
