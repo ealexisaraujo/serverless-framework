@@ -25,6 +25,8 @@ package:
   individually: true
   patterns:
     - "!*/**"
+  # exclude zip files
+    - "!**/*.zip"
 
 
 
@@ -111,10 +113,11 @@ functions:
                 filename: true
   thumbGenerator:
     handler: thumbnail/handler.thumbnailGenerator
+    layers:
+      - {Ref: BaseLambdaLayer}
     package:
       patterns:
         - "thumbnail/handler.js"
-        - "node_modules/**"
     events:
       - s3:
           bucket: bucket-alexis-serverless-course-123213
@@ -123,6 +126,13 @@ functions:
           rules:
           - prefix: upload/
 
+layers:
+  base:
+    name: "prd-dependencies"
+    compatibleRuntimes:
+      - "nodejs14.x"
+    package:
+      artifact: "nodejs.zip"
 
 resources:
   Resources:
