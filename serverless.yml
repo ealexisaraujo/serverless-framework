@@ -3,6 +3,11 @@ service: crud-serverless-users
 provider:
   name: aws
   runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  apiGateway:
+    apiKeys:
+      # - ${ssm:/api-key}
+      - crud-serverless-users-apikey
   iam:
     role:
       statements:
@@ -41,6 +46,9 @@ custom:
       migrate: true
     # Uncomment only if you already have a DynamoDB running locally
     # noStart: true
+  artifactPath:
+    dev: nodejs.zip
+    prod: app/nodejs.zip
 
 functions:
   get-users:
@@ -50,6 +58,7 @@ functions:
         - "getusers/handler.js"
     events:
       - http:
+          private: true
           path: users/{id}
           # path: users
           method: GET
@@ -132,7 +141,7 @@ layers:
     compatibleRuntimes:
       - "nodejs14.x"
     package:
-      artifact: app/nodejs.zip
+      artifact: ${self:custom.artifactPath.${self:provider.stage}}
 
 resources:
   Resources:
