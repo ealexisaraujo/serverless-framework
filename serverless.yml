@@ -49,6 +49,8 @@ custom:
   artifactPath:
     dev: nodejs.zip
     prod: app/nodejs.zip
+  serverless-offline:
+    apiKey: crud-serverless-users-apikey
 
 functions:
   get-users:
