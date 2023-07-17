@@ -47,7 +47,7 @@ custom:
     # Uncomment only if you already have a DynamoDB running locally
     # noStart: true
   artifactPath:
-    dev: nodejs.zip
+    dev: app/nodejs.zip
     prod: app/nodejs.zip
   serverless-offline:
     apiKey: crud-serverless-users-apikey
