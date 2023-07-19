@@ -25,15 +25,16 @@ provider:
 plugins:
   - serverless-offline-ssm
   - serverless-dynamodb
-  - serverless-offline # must be loaded after
-
-
+  - serverless-offline
+  - serverless-apigateway-service-proxy
+  - serverless-lift
 package:
   individually: true
   patterns:
     - "!*/**"
   # exclude zip files
     - "!**/*.zip"
+    - "!**"
 
 
 
@@ -58,6 +59,38 @@ custom:
       - dev
     ssm:
       '/SECRET_EGG': 'Local'
+  apiGatewayServiceProxies:
+    - sqs:
+        path: /likeuser
+        method: post
+        queueName: likequeue
+        cors: true
+        response:
+          template:
+            # `success` is used when the integration response is 200
+            success: |-
+              { "message": "accepted" }
+            # `clientError` is used when the integration response is 400
+            clientError: |-
+              { "message": "there is an error in your request" }
+            # `serverError` is used when the integration response is 500
+            serverError: |-
+              { "message": "there was an error handling your request" }
+
+constructs:
+    sqs-queue:
+        type: queue
+        batchSize: 1
+        worker:
+            handler: likeuser/handler.likeuser
+            reservedConcurrency: 1
+            package:
+              patterns:
+                - "likeuser/handler.js"
+        extensions:
+          queue:
+            Properties:
+              QueueName: likequeue
 
 functions:
   custom-authorizer:

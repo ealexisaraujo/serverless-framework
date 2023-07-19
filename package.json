@@ -11,7 +11,9 @@
   "devDependencies": {
     "aws-sdk": "^2.1256.0",
     "serverless": "^3.21.0",
+    "serverless-apigateway-service-proxy": "^2.2.1",
     "serverless-dynamodb": "^0.2.42",
+    "serverless-lift": "^1.27.0",
     "serverless-offline": "^11.6.0",
     "serverless-offline-ssm": "^6.2.0"
   },
