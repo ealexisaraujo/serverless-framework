@@ -12,7 +12,8 @@
     "aws-sdk": "^2.1256.0",
     "serverless": "^3.21.0",
     "serverless-dynamodb": "^0.2.42",
-    "serverless-offline": "^11.3.0"
+    "serverless-offline": "^11.6.0",
+    "serverless-offline-ssm": "^6.2.0"
   },
   "dependencies": {
     "sharp": "^0.32.2"

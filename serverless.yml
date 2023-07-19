@@ -23,6 +23,7 @@ provider:
 
 
 plugins:
+  - serverless-offline-ssm
   - serverless-dynamodb
   - serverless-offline # must be loaded after
 
@@ -52,6 +53,11 @@ custom:
     prod: app/nodejs.zip
   serverless-offline:
     apiKey: crud-serverless-users-apikey
+  serverless-offline-ssm:
+    stages:
+      - dev
+    ssm:
+      '/SECRET_EGG': 'Local'
 
 functions:
   custom-authorizer:
