@@ -28,6 +28,7 @@ plugins:
   - serverless-offline
   - serverless-apigateway-service-proxy
   - serverless-lift
+  - serverless-domain-manager
 package:
   individually: true
   patterns:
@@ -76,6 +77,14 @@ custom:
             # `serverError` is used when the integration response is 500
             serverError: |-
               { "message": "there was an error handling your request" }
+  customDomain:
+    domainName: sls.cursoaws.xyz
+    basePath: api
+    stage: ${self:provider.stage}
+    certificateName: 'sls.cursoaws.xyz'
+    endpointType: 'regional'
+    apiType: 'rest'
+    securityPolicy: 'tls_1_2'
 
 constructs:
     sqs-queue:
